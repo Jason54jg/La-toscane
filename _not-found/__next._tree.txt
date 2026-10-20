@@ -1,0 +1,4 @@
+:HL["/La-toscane/_next/static/chunks/3c5na-w-x-758.css","style"]
+2:[["children",{"s":"__PAGE__","h":160}]]
+1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
+0:{"b":"ldb5ooX1MF9xUYzm6AHLp","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
