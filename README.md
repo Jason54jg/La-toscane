@@ -59,11 +59,10 @@ Avec `GOOGLE_PLACES_API_KEY` dans `.env.local` → note + avis live.
 
 ### GitHub Pages (temporaire)
 - URL : https://jason54jg.github.io/La-toscane/
-- Workflow : export statique (`STATIC_EXPORT=true`), API exclue **uniquement dans le CI**
-- Le code `src/app/api/reviews` + `src/lib/googleReviews.ts` **reste dans le repo**
-- Sur Pages : fallback avis locaux (silencieux)
-
-Settings → Pages → Source = **GitHub Actions**.
+- Le CI publie le site Next sur la branche **`gh-pages`**
+- **Settings → Pages → Source = Deploy from a branch → `gh-pages` / root**  
+  (si tu laisses `main`, tu ne verras que le README)
+- Détails : `docs/GITHUB-PAGES.md`
 
 ## Personnalisation rapide
 
