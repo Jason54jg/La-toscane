@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,7 +30,7 @@ jobs:
       - name: Install
         run: npm ci
 
-      # Pages = statique : API exclue uniquement pour cet export
+      # Export statique : pas d’API sur Pages (le code API reste dans le repo)
       - name: Exclude API routes for static export
         run: rm -rf src/app/api
 
@@ -40,15 +40,24 @@ jobs:
           STATIC_EXPORT: "true"
           NEXT_PUBLIC_BASE_PATH: /La-toscane
 
-      # Requis pour que GitHub ne traite pas _next/ comme Jekyll
       - name: Add .nojekyll
         run: touch out/.nojekyll
 
-      # Publie le build Next sur la branche gh-pages (écrase le README Jekyll)
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
-          publish_branch: gh-pages
-          force_orphan: true
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

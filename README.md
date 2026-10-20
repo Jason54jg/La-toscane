@@ -59,10 +59,8 @@ Avec `GOOGLE_PLACES_API_KEY` dans `.env.local` → note + avis live.
 
 ### GitHub Pages (temporaire)
 - URL : https://jason54jg.github.io/La-toscane/
-- Le CI publie le site Next sur la branche **`gh-pages`**
-- **Settings → Pages → Source = Deploy from a branch → `gh-pages` / root**  
-  (si tu laisses `main`, tu ne verras que le README)
-- Détails : `docs/GITHUB-PAGES.md`
+- **Settings → Pages → Source = GitHub Actions** (déjà configuré)
+- Workflow : `.github/workflows/deploy-pages.yml`
 
 ## Personnalisation rapide
 
