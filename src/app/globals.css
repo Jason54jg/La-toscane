@@ -1,0 +1,327 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #100e0c;
+  --bg-elevated: #1a1612;
+  --bg-soft: #241f19;
+  --surface: #2a241c;
+  --text: #f3ebe0;
+  --text-muted: #b8a994;
+  --gold: #d4a84b;
+  --gold-soft: #e8c878;
+  --ember: #c45c26;
+  --tomato: #c2302a;
+  --line: rgba(243, 235, 224, 0.12);
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --radius: 1.25rem;
+  --scrollbar-size: 10px;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-soft: var(--bg-soft);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-ember: var(--ember);
+  --color-tomato: var(--tomato);
+  --color-line: var(--line);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+html.loader-lock,
+html.loader-lock body {
+  overflow: hidden;
+}
+
+/* ——— Scrollbar globale (WebKit + Firefox) ——— */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 168, 75, 0.55) rgba(26, 22, 18, 0.9);
+}
+
+*::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(16, 14, 12, 0.95);
+  border-left: 1px solid rgba(243, 235, 224, 0.06);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(232, 200, 120, 0.75),
+    rgba(212, 168, 75, 0.55)
+  );
+  border-radius: 999px;
+  border: 2px solid rgba(16, 14, 12, 0.9);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(232, 200, 120, 0.95),
+    rgba(212, 168, 75, 0.8)
+  );
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  position: relative;
+  color: var(--text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  /* Fond 100 % uni — aucun dégradé fixe (évite le trait horizontal au scroll) */
+  background-color: var(--bg);
+  background-image: none;
+}
+
+::selection {
+  background: rgba(212, 168, 75, 0.35);
+  color: var(--text);
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.section-pad {
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+.container-narrow {
+  width: min(1120px, 100%);
+  margin-inline: auto;
+}
+
+/* Sections continues, sans bandeau de fond qui “coupe” la page */
+section {
+  background: transparent;
+  position: relative;
+}
+
+/* Image hero : fondu CSS (mask) pour zéro trait en bas */
+.hero-media {
+  background-size: cover;
+  background-position: center;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 42%,
+    rgba(0, 0, 0, 0.55) 68%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 42%,
+    rgba(0, 0, 0, 0.55) 68%,
+    transparent 100%
+  );
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes loader-bar {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+@keyframes loader-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s ease-out both;
+}
+
+.animate-float {
+  animation: float-soft 6s ease-in-out infinite;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(212, 168, 75, 0.45);
+  border-radius: 999px;
+}
+
+/* Rangée catégories : pastilles jamais coupées par la scrollbar */
+.category-scroll-wrap {
+  position: relative;
+  margin-inline: calc(-1 * clamp(1rem, 4vw, 3rem));
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+@media (min-width: 768px) {
+  .category-scroll-wrap {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+}
+
+.category-scroll {
+  padding-bottom: 0.85rem;
+  padding-right: 1.25rem;
+  scroll-padding-inline: 1rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 168, 75, 0.5) transparent;
+}
+
+.category-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.category-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  border: none;
+  margin-inline: 0.5rem;
+}
+
+.category-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212, 168, 75, 0.45);
+  border: none;
+  border-radius: 999px;
+}
+
+@media (min-width: 768px) {
+  .category-scroll {
+    padding-bottom: 0;
+    padding-right: 0;
+  }
+}
+
+/* ——— Page de chargement ——— */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: #0c0a09;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+}
+
+.page-loader--out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-loader__glow {
+  position: absolute;
+  width: min(70vw, 520px);
+  height: min(70vw, 520px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(212, 168, 75, 0.22),
+    transparent 68%
+  );
+  animation: loader-pulse 2.4s ease-in-out infinite;
+}
+
+.page-loader__inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+}
+
+.page-loader__eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.page-loader__brand {
+  margin: 0;
+  font-size: clamp(2.8rem, 10vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.page-loader__bar {
+  position: relative;
+  width: min(220px, 55vw);
+  height: 2px;
+  margin: 1.75rem auto 1rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(243, 235, 224, 0.1);
+}
+
+.page-loader__bar span {
+  position: absolute;
+  inset: 0;
+  width: 42%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: loader-bar 1.15s ease-in-out infinite;
+}
+
+.page-loader__caption {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
