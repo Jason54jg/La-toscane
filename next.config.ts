@@ -1,15 +1,23 @@
 import type { NextConfig } from "next";
 
-/** Sur GitHub Pages : /La-toscane — en local : vide */
+/**
+ * STATIC_EXPORT=true → GitHub Pages (temporaire, pas d’API).
+ * Sinon → mode serveur normal (local / Vercel) avec /api/reviews.
+ */
+const isStaticExport = process.env.STATIC_EXPORT === "true";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const nextConfig: NextConfig = {
-  output: "export",
-  basePath,
-  assetPrefix: basePath || undefined,
-  trailingSlash: true,
+  ...(isStaticExport
+    ? {
+        output: "export" as const,
+        trailingSlash: true,
+        basePath: basePath || undefined,
+        assetPrefix: basePath || undefined,
+      }
+    : {}),
   images: {
-    unoptimized: true,
+    unoptimized: isStaticExport,
     remotePatterns: [
       {
         protocol: "https",

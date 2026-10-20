@@ -30,9 +30,15 @@ jobs:
       - name: Install
         run: npm ci
 
+      # Pages = statique : les routes API ne sont pas supportées à l’export
+      # Le code /api/reviews reste dans le repo pour local + Vercel plus tard
+      - name: Exclude API routes for static export
+        run: rm -rf src/app/api
+
       - name: Build static export
         run: npm run build
         env:
+          STATIC_EXPORT: "true"
           NEXT_PUBLIC_BASE_PATH: /La-toscane
 
       - name: Upload Pages artifact

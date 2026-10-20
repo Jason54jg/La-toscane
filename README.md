@@ -48,18 +48,22 @@ src/
 | **Panier** | Ajout / quantité / total, finalisation click-to-call |
 | **i18n** | Sélecteur FR ↔ EN (persistance `localStorage`) |
 | **Livraison & promos** | Données strictes du menu (minima + offres 7j/7) |
-## Déploiement — GitHub Pages
+## Déploiement
 
-Site en **export statique** (`output: "export"`).
+### Local / Vercel (recommandé ensuite)
+```bash
+npm run dev          # API /api/reviews disponible
+npm run build && npm start
+```
+Avec `GOOGLE_PLACES_API_KEY` dans `.env.local` → note + avis live.
 
+### GitHub Pages (temporaire)
 - URL : https://jason54jg.github.io/La-toscane/
-- Workflow : `.github/workflows/deploy-pages.yml` (push sur `main`)
-- En local sans basePath : `npm run dev` (port 3000)
-- Build Pages : `NEXT_PUBLIC_BASE_PATH=/La-toscane npm run build` → dossier `out/`
+- Workflow : export statique (`STATIC_EXPORT=true`), API exclue **uniquement dans le CI**
+- Le code `src/app/api/reviews` + `src/lib/googleReviews.ts` **reste dans le repo**
+- Sur Pages : fallback avis locaux (silencieux)
 
-Dans le dépôt GitHub : **Settings → Pages → Source = GitHub Actions**.
-
-> Les routes API (avis live Places) ne marchent pas sur Pages. Pour plus tard : Vercel/Netlify + clé Google.
+Settings → Pages → Source = **GitHub Actions**.
 
 ## Personnalisation rapide
 

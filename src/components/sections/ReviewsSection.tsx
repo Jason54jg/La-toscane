@@ -1,14 +1,51 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { ExternalLink, Star } from "lucide-react";
-import { googleRating, reviews } from "@/data/reviews";
+import { googleRating, reviews as fallbackReviews } from "@/data/reviews";
+import type { Review } from "@/data/reviews";
+import type { ReviewsPayload } from "@/lib/googleReviews";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { tLocal } from "@/i18n/dictionaries";
 
-/** GitHub Pages = site statique : avis locaux (pas d’API serveur) */
+const initial: ReviewsPayload = {
+  score: googleRating.score,
+  count: googleRating.count,
+  mapsUrl: googleRating.mapsUrl,
+  reviews: fallbackReviews,
+  source: "fallback",
+  fetchedAt: "",
+};
+
+/**
+ * Tente /api/reviews (live Places si clé).
+ * Sur GitHub Pages (statique) : l’API n’existe pas → fallback silencieux.
+ */
 export function ReviewsSection() {
   const { locale, t } = useLocale();
-  const displayReviews = reviews.slice(0, 3);
+  const [data, setData] = useState<ReviewsPayload>(initial);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      try {
+        const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+        const res = await fetch(`${base}/api/reviews`);
+        if (!res.ok) return;
+        const json = (await res.json()) as ReviewsPayload;
+        if (!cancelled) setData(json);
+      } catch {
+        // Pages statiques / hors-ligne : on garde le fallback
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const displayReviews: Review[] = data.reviews.slice(0, 3);
 
   return (
     <section id="avis" className="section-pad py-20 md:py-24">
@@ -25,7 +62,7 @@ export function ReviewsSection() {
           </div>
 
           <a
-            href={googleRating.mapsUrl}
+            href={data.mapsUrl}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-4 rounded-3xl border border-line bg-bg-elevated/90 px-5 py-4 transition hover:border-gold/40"
@@ -33,15 +70,15 @@ export function ReviewsSection() {
             <div className="text-center">
               <p className="font-display text-4xl leading-none text-gold">
                 {locale === "fr"
-                  ? googleRating.score.toFixed(1).replace(".", ",")
-                  : googleRating.score.toFixed(1)}
+                  ? data.score.toFixed(1).replace(".", ",")
+                  : data.score.toFixed(1)}
               </p>
               <div className="mt-1 flex justify-center gap-0.5">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}
                     className={`size-3.5 ${
-                      i < Math.round(googleRating.score)
+                      i < Math.round(data.score)
                         ? "fill-gold text-gold"
                         : "text-line"
                     }`}
@@ -52,7 +89,7 @@ export function ReviewsSection() {
             <div className="text-left text-sm">
               <p className="font-semibold text-text">{t.reviews.google}</p>
               <p className="text-muted">
-                {googleRating.count} {t.reviews.count}
+                {data.count} {t.reviews.count}
               </p>
               <p className="mt-1 inline-flex items-center gap-1 text-xs text-gold">
                 {t.reviews.seeAll}
