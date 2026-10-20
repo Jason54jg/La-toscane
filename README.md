@@ -48,25 +48,18 @@ src/
 | **Panier** | Ajout / quantité / total, finalisation click-to-call |
 | **i18n** | Sélecteur FR ↔ EN (persistance `localStorage`) |
 | **Livraison & promos** | Données strictes du menu (minima + offres 7j/7) |
-## Avis Google (live)
+## Déploiement — GitHub Pages
 
-Un simple `fetch` **navigateur → Google** est **impossible** (CORS + API privée).
+Site en **export statique** (`output: "export"`).
 
-Le site passe par une route serveur :
+- URL : https://jason54jg.github.io/La-toscane/
+- Workflow : `.github/workflows/deploy-pages.yml` (push sur `main`)
+- En local sans basePath : `npm run dev` (port 3000)
+- Build Pages : `NEXT_PUBLIC_BASE_PATH=/La-toscane npm run build` → dossier `out/`
 
-```
-GET /api/reviews  →  Google Places API (New)  →  note + nb d’avis + max 5 avis
-```
+Dans le dépôt GitHub : **Settings → Pages → Source = GitHub Actions**.
 
-| Config | Comportement |
-|--------|----------------|
-| Pas de clé | Fallback `src/data/reviews.ts` |
-| `GOOGLE_PLACES_API_KEY` dans `.env.local` | Données live, cache **6 h** |
-
-```bash
-cp .env.example .env.local
-# coller la clé + activer Places API (New) dans Google Cloud
-```
+> Les routes API (avis live Places) ne marchent pas sur Pages. Pour plus tard : Vercel/Netlify + clé Google.
 
 ## Personnalisation rapide
 
