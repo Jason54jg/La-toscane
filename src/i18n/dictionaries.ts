@@ -11,6 +11,10 @@ export const dictionaries = {
       order: "Commander",
       cart: "Panier",
     },
+    status: {
+      open: "Ouvert",
+      closed: "Fermé",
+    },
     hero: {
       brand: "La Toscane",
       tagline: "Pizzas · Tacos · Burgers",
@@ -115,6 +119,10 @@ export const dictionaries = {
       info: "Info",
       order: "Order",
       cart: "Cart",
+    },
+    status: {
+      open: "Open",
+      closed: "Closed",
     },
     hero: {
       brand: "La Toscane",

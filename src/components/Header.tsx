@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import { Menu, Phone, X } from "lucide-react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { OpenStatusBadge } from "@/components/OpenStatusBadge";
 import { CartButton } from "@/components/cart/CartButton";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { formatPhoneDisplay, phoneTelHref, restaurant } from "@/data/restaurant";
 
 const links = [
-  { href: "#menu", key: "menu" as const },
   { href: "#offres", key: "offers" as const },
+  { href: "#menu", key: "menu" as const },
   { href: "#avis", key: "reviews" as const },
   { href: "#infos", key: "info" as const },
 ];
@@ -36,14 +37,17 @@ export function Header() {
       }`}
     >
       <div className="section-pad container-narrow flex h-16 items-center justify-between gap-4 md:h-20">
-        <a href="#top" className="group flex items-baseline gap-2">
-          <span className="font-display text-2xl tracking-tight text-text md:text-3xl">
-            La Toscane
-          </span>
-          <span className="hidden text-[10px] uppercase tracking-[0.2em] text-gold sm:inline">
-            Neufchâteau
-          </span>
-        </a>
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+          <a href="#top" className="group flex items-baseline gap-2">
+            <span className="font-display text-2xl tracking-tight text-text md:text-3xl">
+              La Toscane
+            </span>
+            <span className="hidden text-[10px] uppercase tracking-[0.2em] text-gold sm:inline">
+              Neufchâteau
+            </span>
+          </a>
+          <OpenStatusBadge compact />
+        </div>
 
         <nav className="hidden items-center gap-6 lg:flex">
           {links.map((link) => (
@@ -82,6 +86,7 @@ export function Header() {
       {open && (
         <div className="border-t border-line bg-bg/95 px-4 py-4 backdrop-blur-md lg:hidden">
           <div className="flex flex-col gap-3">
+            <OpenStatusBadge />
             {links.map((link) => (
               <a
                 key={link.href}
