@@ -7,7 +7,7 @@ import {
   restaurant,
 } from "@/data/restaurant";
 import { useLocale } from "@/i18n/LocaleProvider";
-import { tLocal } from "@/i18n/dictionaries";
+import { getWeeklyHours } from "@/lib/openingHours";
 
 export function InfoSection() {
   const { locale, t } = useLocale();
@@ -52,15 +52,14 @@ export function InfoSection() {
                 <p className="text-sm uppercase tracking-wide text-muted">
                   {t.info.hours}
                 </p>
-                <p className="mt-1 text-lg">
-                  {tLocal(restaurant.hours.weekdays, locale)}
-                </p>
-                <p className="text-muted">
-                  {tLocal(restaurant.hours.weekend, locale)}
-                </p>
-                <p className="mt-1 text-sm text-ember">
-                  {tLocal(restaurant.hours.sundayNote, locale)}
-                </p>
+                <dl className="mt-1 space-y-1">
+                  {getWeeklyHours(locale).map((row) => (
+                    <div key={row.label} className="flex flex-wrap gap-x-3">
+                      <dt className="min-w-[6.5rem] text-muted">{row.label}</dt>
+                      <dd className="text-lg">{row.slots}</dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
             </div>
 

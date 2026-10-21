@@ -7,20 +7,6 @@ export const restaurant: RestaurantInfo = {
   city: "Neufchâteau",
   postalCode: "88300",
   phones: ["0329953760", "0672255797"],
-  hours: {
-    weekdays: {
-      fr: "11h00 – 14h30 · 18h00 – 23h00",
-      en: "11:00 AM – 2:30 PM · 6:00 PM – 11:00 PM",
-    },
-    weekend: {
-      fr: "Week-end : 18h00 – 00h00",
-      en: "Weekend: 6:00 PM – 12:00 AM",
-    },
-    sundayNote: {
-      fr: "Fermé le dimanche midi",
-      en: "Closed Sunday lunch",
-    },
-  },
   delivery: {
     free: true,
     zones: [
@@ -62,5 +48,13 @@ export const formatPhoneDisplay = (phone: string) => {
   return phone;
 };
 
-export const phoneTelHref = (phone: string) =>
-  `tel:+33${phone.replace(/\D/g, "").slice(1)}`;
+const toE164 = (phone: string) => `+33${phone.replace(/\D/g, "").slice(1)}`;
+
+export const phoneTelHref = (phone: string) => `tel:${toE164(phone)}`;
+
+/** `?&body=` : forme acceptée à la fois par iOS et Android */
+export const phoneSmsHref = (phone: string, body: string) =>
+  `sms:${toE164(phone)}?&body=${encodeURIComponent(body)}`;
+
+/** Premier numéro mobile (06 / 07), seul capable de recevoir un SMS */
+export const mobilePhone = restaurant.phones.find((p) => /^0[67]/.test(p));

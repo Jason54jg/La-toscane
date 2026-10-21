@@ -1,29 +1,56 @@
 "use client";
 
-import { Minus, Plus, Phone, Trash2, X } from "lucide-react";
+import { useState } from "react";
+import { Check, Copy, MessageSquare, Minus, Plus, Phone, Trash2, X } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { tLocal } from "@/i18n/dictionaries";
-import { formatPrice } from "@/lib/pricing";
+import { getMenuItem } from "@/data/menu";
+import { buildSelectionSummary, formatPrice } from "@/lib/pricing";
 import { useCartStore } from "@/store/cartStore";
-import { formatPhoneDisplay, phoneTelHref, restaurant } from "@/data/restaurant";
+import {
+  formatPhoneDisplay,
+  mobilePhone,
+  phoneSmsHref,
+  phoneTelHref,
+  restaurant,
+} from "@/data/restaurant";
+import type { CartItem, Locale } from "@/types/menu";
+
+/** Résumé recalculé dans la langue courante (repli : texte figé à l’ajout) */
+function itemSummary(item: CartItem, locale: Locale) {
+  const menuItem = getMenuItem(item.menuItemId);
+  return menuItem
+    ? buildSelectionSummary(menuItem, item.selection, locale)
+    : item.summary;
+}
 
 export function CartDrawer() {
   const { locale, t } = useLocale();
   const { items, isOpen, closeCart, removeItem, updateQuantity, clear, total } =
     useCartStore();
+  const [copied, setCopied] = useState(false);
   const phone = restaurant.phones[0];
   const amount = total();
 
   if (!isOpen) return null;
 
-  const orderText = encodeURIComponent(
+  const orderText =
     items
-      .map(
-        (item) =>
-          `• ${tLocal(item.name, locale)} x${item.quantity} — ${formatPrice(item.unitPrice * item.quantity, locale)}${item.summary ? ` (${item.summary})` : ""}`,
-      )
-      .join("\n") + `\n\nTotal: ${formatPrice(amount, locale)}`,
-  );
+      .map((item) => {
+        const summary = itemSummary(item, locale);
+        return `• ${tLocal(item.name, locale)} x${item.quantity} — ${formatPrice(item.unitPrice * item.quantity, locale)}${summary ? ` (${summary})` : ""}`;
+      })
+      .join("\n") + `\n\nTotal: ${formatPrice(amount, locale)}`;
+
+  const copyOrder = async () => {
+    try {
+      await navigator.clipboard.writeText(orderText);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Presse-papiers indisponible (contexte non sécurisé) : rien à faire
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-[60]">
@@ -56,54 +83,57 @@ export function CartDrawer() {
               {t.cart.empty}
             </p>
           ) : (
-            items.map((item) => (
-              <article
-                key={item.id}
-                className="rounded-2xl border border-line bg-bg-soft/60 p-4"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h3 className="font-semibold">{tLocal(item.name, locale)}</h3>
-                    {item.summary && (
-                      <p className="mt-1 text-xs text-muted">{item.summary}</p>
-                    )}
-                    <p className="mt-2 text-sm text-gold">
-                      {formatPrice(item.unitPrice, locale)}
-                    </p>
+            items.map((item) => {
+              const summary = itemSummary(item, locale);
+              return (
+                <article
+                  key={item.id}
+                  className="rounded-2xl border border-line bg-bg-soft/60 p-4"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="font-semibold">{tLocal(item.name, locale)}</h3>
+                      {summary && (
+                        <p className="mt-1 text-xs text-muted">{summary}</p>
+                      )}
+                      <p className="mt-2 text-sm text-gold">
+                        {formatPrice(item.unitPrice, locale)}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeItem(item.id)}
+                      className="text-muted hover:text-tomato"
+                      aria-label={t.cart.remove}
+                    >
+                      <Trash2 className="size-4" />
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => removeItem(item.id)}
-                    className="text-muted hover:text-tomato"
-                    aria-label={t.cart.remove}
-                  >
-                    <Trash2 className="size-4" />
-                  </button>
-                </div>
-                <div className="mt-3 flex items-center gap-3">
-                  <button
-                    type="button"
-                    className="rounded-full border border-line p-1"
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                  >
-                    <Minus className="size-4" />
-                  </button>
-                  <span className="min-w-6 text-center font-semibold">
-                    {item.quantity}
-                  </span>
-                  <button
-                    type="button"
-                    className="rounded-full border border-line p-1"
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  >
-                    <Plus className="size-4" />
-                  </button>
-                  <span className="ml-auto font-semibold">
-                    {formatPrice(item.unitPrice * item.quantity, locale)}
-                  </span>
-                </div>
-              </article>
-            ))
+                  <div className="mt-3 flex items-center gap-3">
+                    <button
+                      type="button"
+                      className="rounded-full border border-line p-1"
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    >
+                      <Minus className="size-4" />
+                    </button>
+                    <span className="min-w-6 text-center font-semibold">
+                      {item.quantity}
+                    </span>
+                    <button
+                      type="button"
+                      className="rounded-full border border-line p-1"
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    >
+                      <Plus className="size-4" />
+                    </button>
+                    <span className="ml-auto font-semibold">
+                      {formatPrice(item.unitPrice * item.quantity, locale)}
+                    </span>
+                  </div>
+                </article>
+              );
+            })
           )}
         </div>
 
@@ -126,14 +156,34 @@ export function CartDrawer() {
               </button>
             )}
             <a
-              href={`${phoneTelHref(phone)}`}
+              href={phoneTelHref(phone)}
               className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-tomato px-4 py-3 font-semibold text-white transition hover:brightness-110"
-              title={orderText}
             >
               <Phone className="size-4" />
               {t.cart.checkout}
             </a>
           </div>
+          {items.length > 0 && (
+            <div className="flex gap-2">
+              {mobilePhone && (
+                <a
+                  href={phoneSmsHref(mobilePhone, orderText)}
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm text-text transition hover:border-gold/50 hover:text-gold"
+                >
+                  <MessageSquare className="size-4" />
+                  {t.cart.sms}
+                </a>
+              )}
+              <button
+                type="button"
+                onClick={copyOrder}
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm text-text transition hover:border-gold/50 hover:text-gold"
+              >
+                {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+                {copied ? t.cart.copied : t.cart.copy}
+              </button>
+            </div>
+          )}
           <p className="text-center text-xs text-muted">
             {formatPhoneDisplay(phone)} · {formatPhoneDisplay(restaurant.phones[1])}
           </p>

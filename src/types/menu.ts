@@ -67,11 +67,6 @@ export interface RestaurantInfo {
   city: string;
   postalCode: string;
   phones: string[];
-  hours: {
-    weekdays: LocalizedString;
-    weekend: LocalizedString;
-    sundayNote: LocalizedString;
-  };
   delivery: {
     free: boolean;
     zones: { label: LocalizedString; minOrder: number }[];

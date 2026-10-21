@@ -59,6 +59,7 @@ function slotsForDay(day: number): Slot[] {
 }
 
 function formatHour(totalMinutes: number, locale: "fr" | "en") {
+  if (totalMinutes === 24 * 60) return locale === "fr" ? "minuit" : "midnight";
   const m = ((totalMinutes % (24 * 60)) + 24 * 60) % (24 * 60);
   const h = Math.floor(m / 60);
   const min = m % 60;
@@ -70,6 +71,23 @@ function formatHour(totalMinutes: number, locale: "fr" | "en") {
   return min === 0
     ? `${h12} ${suffix}`
     : `${h12}:${String(min).padStart(2, "0")} ${suffix}`;
+}
+
+/** Groupes de jours partageant les mêmes créneaux (cf. slotsForDay) */
+const DAY_GROUPS = [
+  { day: 1, label: { fr: "Lun – Ven", en: "Mon – Fri" } },
+  { day: 6, label: { fr: "Samedi", en: "Saturday" } },
+  { day: 0, label: { fr: "Dimanche", en: "Sunday" } },
+];
+
+/** Horaires affichés, dérivés des mêmes créneaux que le badge Ouvert/Fermé */
+export function getWeeklyHours(locale: "fr" | "en") {
+  return DAY_GROUPS.map(({ day, label }) => ({
+    label: label[locale],
+    slots: slotsForDay(day)
+      .map((s) => `${formatHour(s.start, locale)} – ${formatHour(s.end, locale)}`)
+      .join(" · "),
+  }));
 }
 
 export function getOpenStatus(now = new Date()): OpenStatus {

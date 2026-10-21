@@ -70,6 +70,8 @@ export const useCartStore = create<CartState>()(
     {
       name: "la-toscane-cart",
       partialize: (state) => ({ items: state.items }),
+      // Réhydraté après montage (Providers) : 1er rendu client = rendu serveur
+      skipHydration: true,
     },
   ),
 );
