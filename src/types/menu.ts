@@ -74,6 +74,7 @@ export interface RestaurantInfo {
   promos: LocalizedString[];
   mapsUrl: string;
   facebookUrl?: string;
+  uberEatsUrl?: string;
   halal: boolean;
 }
 

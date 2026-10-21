@@ -23,6 +23,7 @@ export const dictionaries = {
       ctaMenu: "Voir la carte",
       ctaCall: "Appeler",
       ctaCompose: "Composer ma commande",
+      ctaUberEats: "Commander sur Uber Eats",
     },
     categories: {
       pizzas: "Nos Pizzas",
@@ -77,6 +78,7 @@ export const dictionaries = {
       remove: "Retirer",
       checkout: "Finaliser par téléphone",
       sms: "Envoyer par SMS",
+      uberEats: "Commander sur Uber Eats",
       copy: "Copier la commande",
       copied: "Commande copiée",
       note: "Commande indicative — validation au téléphone avec l’équipe.",
@@ -135,6 +137,7 @@ export const dictionaries = {
       ctaMenu: "View menu",
       ctaCall: "Call us",
       ctaCompose: "Build my order",
+      ctaUberEats: "Order on Uber Eats",
     },
     categories: {
       pizzas: "Pizzas",
@@ -189,6 +192,7 @@ export const dictionaries = {
       remove: "Remove",
       checkout: "Finalize by phone",
       sms: "Send by text",
+      uberEats: "Order on Uber Eats",
       copy: "Copy order",
       copied: "Order copied",
       note: "Indicative order — confirm by phone with the team.",

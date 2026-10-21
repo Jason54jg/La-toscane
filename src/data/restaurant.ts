@@ -37,6 +37,8 @@ export const restaurant: RestaurantInfo = {
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=65+Rue+Saint-Jean+88300+Neufch%C3%A2teau",
   facebookUrl: "https://www.facebook.com",
+  uberEatsUrl:
+    "https://www.ubereats.com/fr/store/la-toscane/TjCPi3fIVfGvSL2r6DRCrw",
   halal: true,
 };
 

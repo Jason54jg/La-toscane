@@ -1,6 +1,6 @@
 "use client";
 
-import { Phone, Pizza } from "lucide-react";
+import { Bike, Phone, Pizza } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { phoneTelHref, restaurant } from "@/data/restaurant";
 
@@ -61,6 +61,17 @@ export function Hero() {
               <Phone className="size-4" />
               {t.hero.ctaCall}
             </a>
+            {restaurant.uberEatsUrl && (
+              <a
+                href={restaurant.uberEatsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 text-sm font-semibold text-text transition hover:border-gold/50"
+              >
+                <Bike className="size-4" />
+                {t.hero.ctaUberEats}
+              </a>
+            )}
           </div>
         </div>
 
