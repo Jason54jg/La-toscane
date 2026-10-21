@@ -37,24 +37,29 @@ export function Header() {
       }`}
     >
       <div className="section-pad container-narrow flex h-16 items-center justify-between gap-4 md:h-20">
-        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+        {/* lg+ : ne rétrécit pas sous son contenu (sinon le badge déborde sur la nav) */}
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3 lg:shrink-0">
           <a href="#top" className="group flex items-baseline gap-2">
-            <span className="whitespace-nowrap font-display text-2xl tracking-tight text-text md:text-3xl">
+            <span className="font-display text-2xl leading-none sm:whitespace-nowrap tracking-tight text-text md:text-3xl">
               La Toscane
             </span>
-            <span className="hidden text-[10px] uppercase tracking-[0.2em] text-gold sm:inline">
+            {/* Seulement sur très grands écrans : sinon le header manque de place */}
+            <span className="hidden text-[10px] uppercase tracking-[0.2em] text-gold 2xl:inline">
               Neufchâteau
             </span>
           </a>
-          <OpenStatusBadge compact />
+          {/* Sur petit mobile, le badge est dans le menu déroulant */}
+          <div className="hidden sm:block">
+            <OpenStatusBadge compact />
+          </div>
         </div>
 
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav className="hidden items-center gap-4 lg:flex xl:gap-6">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted transition hover:text-gold-soft"
+              className="whitespace-nowrap text-sm text-muted transition hover:text-gold-soft"
             >
               {t.nav[link.key]}
             </a>
@@ -65,7 +70,7 @@ export function Header() {
           <LanguageSwitcher />
           <a
             href={phoneTelHref(phone)}
-            className="hidden items-center gap-2 whitespace-nowrap rounded-full border border-line px-3 py-2 text-sm text-text transition hover:border-gold/50 hover:text-gold md:inline-flex"
+            className="hidden items-center gap-2 whitespace-nowrap rounded-full border border-line px-3 py-2 text-sm text-text transition hover:border-gold/50 hover:text-gold lg:inline-flex"
           >
             <Phone className="size-4" />
             {formatPhoneDisplay(phone)}
