@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, Phone, X } from "lucide-react";
+import { Bike, Menu, Phone, X } from "lucide-react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { OpenStatusBadge } from "@/components/OpenStatusBadge";
 import { CartButton } from "@/components/cart/CartButton";
@@ -39,7 +39,7 @@ export function Header() {
       <div className="section-pad container-narrow flex h-16 items-center justify-between gap-4 md:h-20">
         <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <a href="#top" className="group flex items-baseline gap-2">
-            <span className="font-display text-2xl tracking-tight text-text md:text-3xl">
+            <span className="whitespace-nowrap font-display text-2xl tracking-tight text-text md:text-3xl">
               La Toscane
             </span>
             <span className="hidden text-[10px] uppercase tracking-[0.2em] text-gold sm:inline">
@@ -65,11 +65,24 @@ export function Header() {
           <LanguageSwitcher />
           <a
             href={phoneTelHref(phone)}
-            className="hidden items-center gap-2 rounded-full border border-line px-3 py-2 text-sm text-text transition hover:border-gold/50 hover:text-gold md:inline-flex"
+            className="hidden items-center gap-2 whitespace-nowrap rounded-full border border-line px-3 py-2 text-sm text-text transition hover:border-gold/50 hover:text-gold md:inline-flex"
           >
             <Phone className="size-4" />
             {formatPhoneDisplay(phone)}
           </a>
+          {restaurant.uberEatsUrl && (
+            <a
+              href={restaurant.uberEatsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden items-center gap-2 whitespace-nowrap rounded-full border border-line px-3 py-2 text-sm text-text transition hover:border-gold/50 hover:text-gold sm:inline-flex"
+              aria-label={t.hero.ctaUberEats}
+              title={t.hero.ctaUberEats}
+            >
+              <Bike className="size-4" />
+              <span className="hidden xl:inline">Uber Eats</span>
+            </a>
+          )}
           <CartButton />
           <button
             type="button"
@@ -104,6 +117,17 @@ export function Header() {
               <Phone className="size-4" />
               {formatPhoneDisplay(phone)}
             </a>
+            {restaurant.uberEatsUrl && (
+              <a
+                href={restaurant.uberEatsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-line px-4 py-3 font-semibold text-text"
+              >
+                <Bike className="size-4" />
+                {t.hero.ctaUberEats}
+              </a>
+            )}
           </div>
         </div>
       )}

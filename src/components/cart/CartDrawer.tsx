@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Bike, Check, Copy, MessageSquare, Minus, Plus, Phone, Trash2, X } from "lucide-react";
+import { Bike, Check, Copy, Minus, Plus, Phone, Trash2, X } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { tLocal } from "@/i18n/dictionaries";
 import { getMenuItem } from "@/data/menu";
@@ -9,8 +9,6 @@ import { buildSelectionSummary, formatPrice } from "@/lib/pricing";
 import { useCartStore } from "@/store/cartStore";
 import {
   formatPhoneDisplay,
-  mobilePhone,
-  phoneSmsHref,
   phoneTelHref,
   restaurant,
 } from "@/data/restaurant";
@@ -163,17 +161,8 @@ export function CartDrawer() {
               {t.cart.checkout}
             </a>
           </div>
-          {items.length > 0 && (
-            <div className="flex gap-2">
-              {mobilePhone && (
-                <a
-                  href={phoneSmsHref(mobilePhone, orderText)}
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm text-text transition hover:border-gold/50 hover:text-gold"
-                >
-                  <MessageSquare className="size-4" />
-                  {t.cart.sms}
-                </a>
-              )}
+          <div className="flex gap-2">
+            {items.length > 0 && (
               <button
                 type="button"
                 onClick={copyOrder}
@@ -182,19 +171,19 @@ export function CartDrawer() {
                 {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
                 {copied ? t.cart.copied : t.cart.copy}
               </button>
-            </div>
-          )}
-          {restaurant.uberEatsUrl && (
-            <a
-              href={restaurant.uberEatsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm text-text transition hover:border-gold/50 hover:text-gold"
-            >
-              <Bike className="size-4" />
-              {t.cart.uberEats}
-            </a>
-          )}
+            )}
+            {restaurant.uberEatsUrl && (
+              <a
+                href={restaurant.uberEatsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm text-text transition hover:border-gold/50 hover:text-gold"
+              >
+                <Bike className="size-4" />
+                {t.cart.uberEats}
+              </a>
+            )}
+          </div>
           <p className="text-center text-xs text-muted">
             {formatPhoneDisplay(phone)} · {formatPhoneDisplay(restaurant.phones[1])}
           </p>

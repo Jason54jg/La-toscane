@@ -50,13 +50,5 @@ export const formatPhoneDisplay = (phone: string) => {
   return phone;
 };
 
-const toE164 = (phone: string) => `+33${phone.replace(/\D/g, "").slice(1)}`;
-
-export const phoneTelHref = (phone: string) => `tel:${toE164(phone)}`;
-
-/** `?&body=` : forme acceptée à la fois par iOS et Android */
-export const phoneSmsHref = (phone: string, body: string) =>
-  `sms:${toE164(phone)}?&body=${encodeURIComponent(body)}`;
-
-/** Premier numéro mobile (06 / 07), seul capable de recevoir un SMS */
-export const mobilePhone = restaurant.phones.find((p) => /^0[67]/.test(p));
+export const phoneTelHref = (phone: string) =>
+  `tel:+33${phone.replace(/\D/g, "").slice(1)}`;
