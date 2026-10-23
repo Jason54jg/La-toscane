@@ -63,6 +63,7 @@ export function ReviewsSection() {
 
           <a
             href={data.mapsUrl}
+            data-track="google-reviews"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-4 rounded-3xl border border-line bg-bg-elevated/90 px-5 py-4 transition hover:border-gold/40"

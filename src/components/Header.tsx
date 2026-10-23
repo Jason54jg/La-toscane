@@ -70,6 +70,7 @@ export function Header() {
           <LanguageSwitcher />
           <a
             href={phoneTelHref(phone)}
+            data-track="call"
             className="hidden items-center gap-2 whitespace-nowrap rounded-full border border-line px-3 py-2 text-sm text-text transition hover:border-gold/50 hover:text-gold lg:inline-flex"
           >
             <Phone className="size-4" />
@@ -78,6 +79,7 @@ export function Header() {
           {restaurant.uberEatsUrl && (
             <a
               href={restaurant.uberEatsUrl}
+              data-track="uber-eats"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden items-center gap-2 whitespace-nowrap rounded-full border border-line px-3 py-2 text-sm text-text transition hover:border-gold/50 hover:text-gold sm:inline-flex"
@@ -117,6 +119,7 @@ export function Header() {
             ))}
             <a
               href={phoneTelHref(phone)}
+              data-track="call"
               className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-tomato px-4 py-3 font-semibold text-white"
             >
               <Phone className="size-4" />
@@ -125,6 +128,7 @@ export function Header() {
             {restaurant.uberEatsUrl && (
               <a
                 href={restaurant.uberEatsUrl}
+                data-track="uber-eats"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-line px-4 py-3 font-semibold text-text"

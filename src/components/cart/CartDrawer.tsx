@@ -155,6 +155,7 @@ export function CartDrawer() {
             )}
             <a
               href={phoneTelHref(phone)}
+              data-track="call"
               className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-tomato px-4 py-3 font-semibold text-white transition hover:brightness-110"
             >
               <Phone className="size-4" />
@@ -175,6 +176,7 @@ export function CartDrawer() {
             {restaurant.uberEatsUrl && (
               <a
                 href={restaurant.uberEatsUrl}
+                data-track="uber-eats"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-line px-4 py-2.5 text-sm text-text transition hover:border-gold/50 hover:text-gold"

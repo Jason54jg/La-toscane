@@ -16,6 +16,7 @@ export function LanguageSwitcher() {
           key={code}
           type="button"
           onClick={() => setLocale(code)}
+          data-track={locale === code ? undefined : `lang-switch:${code}`}
           className={`rounded-full px-3 py-1.5 uppercase transition ${
             locale === code
               ? "bg-gold text-bg shadow-sm"

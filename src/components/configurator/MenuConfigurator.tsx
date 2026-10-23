@@ -308,6 +308,7 @@ export function MenuConfigurator({ item, onClose }: Props) {
             type="button"
             disabled={!canAdd}
             onClick={handleAdd}
+            data-track={`add-pizza:${item.id}`}
             className="w-full rounded-full bg-tomato py-3.5 font-semibold text-white transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {t.configurator.addToCart}

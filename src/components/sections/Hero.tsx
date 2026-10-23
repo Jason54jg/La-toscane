@@ -56,6 +56,7 @@ export function Hero() {
             </a>
             <a
               href={phoneTelHref(phone)}
+              data-track="call"
               className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 text-sm font-semibold text-text transition hover:border-gold/50"
             >
               <Phone className="size-4" />
@@ -64,6 +65,7 @@ export function Hero() {
             {restaurant.uberEatsUrl && (
               <a
                 href={restaurant.uberEatsUrl}
+                data-track="uber-eats"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 text-sm font-semibold text-text transition hover:border-gold/50"

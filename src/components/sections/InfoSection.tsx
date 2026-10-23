@@ -37,6 +37,7 @@ export function InfoSection() {
                 </p>
                 <a
                   href={restaurant.mapsUrl}
+                  data-track="directions"
                   target="_blank"
                   rel="noreferrer"
                   className="mt-3 inline-flex text-sm font-semibold text-gold hover:text-gold-soft"
@@ -74,6 +75,7 @@ export function InfoSection() {
                     <a
                       key={phone}
                       href={phoneTelHref(phone)}
+                      data-track="call"
                       className="inline-flex items-center justify-center gap-2 rounded-full bg-tomato px-5 py-3 font-semibold text-white transition hover:brightness-110"
                     >
                       <Phone className="size-4" />
