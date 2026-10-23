@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Bike, Menu, Phone, X } from "lucide-react";
+import Image from "next/image";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { OpenStatusBadge } from "@/components/OpenStatusBadge";
 import { CartButton } from "@/components/cart/CartButton";
@@ -20,6 +21,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const phone = restaurant.phones[0];
+  // next/image n'ajoute pas le basePath (GitHub Pages) aux src en chaîne
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -39,10 +42,15 @@ export function Header() {
       <div className="section-pad container-narrow flex h-16 items-center justify-between gap-4 md:h-20">
         {/* lg+ : ne rétrécit pas sous son contenu (sinon le badge déborde sur la nav) */}
         <div className="flex min-w-0 items-center gap-2 sm:gap-3 lg:shrink-0">
-          <a href="#top" className="group flex items-baseline gap-2">
-            <span className="font-display text-2xl leading-none sm:whitespace-nowrap tracking-tight text-text md:text-3xl">
-              La Toscane
-            </span>
+          <a href="#top" className="group flex items-center gap-2">
+            <Image
+              src={`${base}/images/logo.svg`}
+              alt="La Toscane"
+              width={988}
+              height={799}
+              loading="eager"
+              className="h-12 w-auto md:h-16"
+            />
             {/* Seulement sur très grands écrans : sinon le header manque de place */}
             <span className="hidden text-[10px] uppercase tracking-[0.2em] text-gold 2xl:inline">
               Neufchâteau

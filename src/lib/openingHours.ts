@@ -84,9 +84,9 @@ const DAY_GROUPS = [
 export function getWeeklyHours(locale: "fr" | "en") {
   return DAY_GROUPS.map(({ day, label }) => ({
     label: label[locale],
-    slots: slotsForDay(day)
-      .map((s) => `${formatHour(s.start, locale)} – ${formatHour(s.end, locale)}`)
-      .join(" · "),
+    slots: slotsForDay(day).map(
+      (s) => `${formatHour(s.start, locale)} – ${formatHour(s.end, locale)}`,
+    ),
   }));
 }
 

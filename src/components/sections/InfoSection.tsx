@@ -53,11 +53,20 @@ export function InfoSection() {
                 <p className="text-sm uppercase tracking-wide text-muted">
                   {t.info.hours}
                 </p>
-                <dl className="mt-1 space-y-1">
+                <dl className="mt-2 space-y-3">
                   {getWeeklyHours(locale).map((row) => (
-                    <div key={row.label} className="flex flex-wrap gap-x-3">
-                      <dt className="min-w-[6.5rem] text-muted">{row.label}</dt>
-                      <dd className="text-lg">{row.slots}</dd>
+                    <div
+                      key={row.label}
+                      className="grid grid-cols-[6.5rem_1fr] items-baseline gap-x-3"
+                    >
+                      <dt className="text-muted">{row.label}</dt>
+                      <dd className="text-lg">
+                        {row.slots.map((slot) => (
+                          <span key={slot} className="block">
+                            {slot}
+                          </span>
+                        ))}
+                      </dd>
                     </div>
                   ))}
                 </dl>

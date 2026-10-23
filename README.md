@@ -57,6 +57,17 @@ npm run build && npm start
 ```
 Avec `GOOGLE_PLACES_API_KEY` dans `.env.local` → note + avis live.
 
+### Docker (VPS)
+Image Node standalone (~80 Mo compressée, ~50–100 Mo de RAM), API `/api/reviews` incluse.
+```bash
+docker compose up -d --build    # http://<ip-du-vps>:3000
+docker compose logs -f
+docker compose down
+```
+- Avis live (optionnel) : `GOOGLE_PLACES_API_KEY` / `GOOGLE_PLACE_ID` dans un fichier `.env` à la racine (jamais commité).
+- Petit VPS (2 Go) : le build monte à ~1,1 Go de RAM → prévoir un swap de 1–2 Go, puis `docker builder prune -f` pour récupérer le disque.
+- Mise à jour : `git pull && docker compose up -d --build`.
+
 ### GitHub Pages (temporaire)
 - URL : https://jason54jg.github.io/La-toscane/
 - **Settings → Pages → Source = GitHub Actions** (déjà configuré)
