@@ -21,6 +21,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const phone = restaurant.phones[0];
+  // next/image n'ajoute pas le basePath (GitHub Pages) aux src en chaîne
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -42,7 +44,7 @@ export function Header() {
         <div className="flex min-w-0 items-center gap-2 sm:gap-3 lg:shrink-0">
           <a href="#top" className="group flex items-center gap-2">
             <Image
-              src="/images/logo.svg"
+              src={`${base}/images/logo.svg`}
               alt="La Toscane"
               width={988}
               height={799}

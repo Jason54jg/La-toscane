@@ -49,12 +49,6 @@ export function Hero() {
               {t.hero.ctaMenu}
             </a>
             <a
-              href="#menu"
-              className="rounded-full border border-line bg-bg/30 px-6 py-3.5 text-sm font-semibold text-text backdrop-blur transition hover:border-gold/50"
-            >
-              {t.hero.ctaCompose}
-            </a>
-            <a
               href={phoneTelHref(phone)}
               className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 text-sm font-semibold text-text transition hover:border-gold/50"
             >

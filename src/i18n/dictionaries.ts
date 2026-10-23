@@ -19,10 +19,9 @@ export const dictionaries = {
       brand: "La Toscane",
       tagline: "Pizzas · Tacos · Burgers",
       subtitle:
-        "Pizzeria halal à Neufchâteau — livraison gratuite, pizzas généreuses et offres 7j/7.",
+        "Pizzeria halal à Neufchâteau — livraison gratuite dès 12 €, pizzas généreuses et offres 7j/7.",
       ctaMenu: "Voir la carte",
       ctaCall: "Appeler",
-      ctaCompose: "Composer ma commande",
       ctaUberEats: "Commander sur Uber Eats",
     },
     categories: {
@@ -132,10 +131,9 @@ export const dictionaries = {
       brand: "La Toscane",
       tagline: "Pizzas · Tacos · Burgers",
       subtitle:
-        "Halal pizzeria in Neufchâteau — free delivery, generous pizzas and daily deals.",
+        "Halal pizzeria in Neufchâteau — free delivery from €12, generous pizzas and daily deals.",
       ctaMenu: "View menu",
       ctaCall: "Call us",
-      ctaCompose: "Build my order",
       ctaUberEats: "Order on Uber Eats",
     },
     categories: {
