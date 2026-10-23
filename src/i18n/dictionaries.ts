@@ -111,6 +111,7 @@ export const dictionaries = {
     footer: {
       rights: "Tous droits réservés.",
       made: "Vitrine digitale — commandes par téléphone.",
+      credit: "Site réalisé par",
     },
   },
   en: {
@@ -223,6 +224,7 @@ export const dictionaries = {
     footer: {
       rights: "All rights reserved.",
       made: "Digital storefront — orders by phone.",
+      credit: "Website by",
     },
   },
 } as const;

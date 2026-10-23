@@ -17,9 +17,22 @@ export function Footer() {
           </p>
           <p className="mt-2 text-xs text-muted">{t.footer.made}</p>
         </div>
-        <p className="text-sm text-muted">
-          © {year} La Toscane. {t.footer.rights}
-        </p>
+        <div className="text-sm text-muted md:text-right">
+          <p>
+            © {year} La Toscane. {t.footer.rights}
+          </p>
+          <p className="mt-1 text-xs">
+            {t.footer.credit}{" "}
+            <a
+              href="https://github.com/Jason54jg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-gold transition hover:text-gold-soft"
+            >
+              Jason
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );
