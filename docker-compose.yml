@@ -1,0 +1,19 @@
+services:
+  web:
+    build: .
+    image: la-toscane
+    container_name: la-toscane
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    # GOOGLE_PLACES_API_KEY / GOOGLE_PLACE_ID (optionnels) → avis Google live
+    env_file:
+      - path: .env
+        required: false
+    mem_limit: 384m
+    # Logs bornés : évite de remplir le disque du VPS
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
