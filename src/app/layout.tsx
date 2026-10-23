@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   title: "La Toscane — Pizzeria à Neufchâteau",
   description:
     "Pizzas, tacos, burgers, tex-mex à Neufchâteau. Livraison gratuite, ouvert 7j/7. 65 Rue Saint-Jean.",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/images/apple-touch-icon.png", sizes: "180x180" }],
+  },
   openGraph: {
     title: "La Toscane — Pizzeria à Neufchâteau",
     description:

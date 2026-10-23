@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { useLocale } from "@/i18n/LocaleProvider";
 
 const MIN_MS = 1100;
@@ -56,6 +57,9 @@ export function PageLoader() {
     >
       <div className="page-loader__glow" aria-hidden />
       <div className="page-loader__inner">
+        <div className="mx-auto mb-5 flex size-[7.5rem] items-center justify-center rounded-full border border-line/80 bg-bg-elevated/90 p-3 shadow-[0_20px_50px_rgba(0,0,0,0.45)] ring-1 ring-gold/20">
+          <BrandLogo size={96} priority />
+        </div>
         <p className="page-loader__eyebrow">Neufchâteau</p>
         <h1 className="font-display page-loader__brand">La Toscane</h1>
         <div className="page-loader__bar" aria-hidden>
