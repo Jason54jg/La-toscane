@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+  <circle cx="100" cy="100" r="94" stroke="#f3ebe0" stroke-width="2.5"/>
+  <circle cx="100" cy="100" r="86" stroke="#f3ebe0" stroke-width="1.2" opacity="0.85"/>
+  <path
+    d="M100 36c-8 0-14 6-14 14v3h28v-3c0-8-6-14-14-14z"
+    stroke="#f3ebe0"
+    stroke-width="2.2"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M78 53h44l-6 10H84l-6-10z"
+    stroke="#f3ebe0"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+  <text
+    x="100"
+    y="118"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="34"
+    font-weight="700"
+    fill="#f3ebe0"
+    letter-spacing="-0.5"
+  >
+    Toscane
+  </text>
+  <text
+    x="100"
+    y="136"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="11"
+    font-weight="700"
+    fill="#f3ebe0"
+    letter-spacing="0.35em"
+  >
+    PIZZA
+  </text>
+  <path
+    d="M62 142c12 8 64 8 76 0"
+    stroke="#f3ebe0"
+    stroke-width="1.5"
+    stroke-linecap="round"
+  />
+  <path
+    d="M68 148c10 5 54 5 64 0"
+    stroke="#f3ebe0"
+    stroke-width="1"
+    stroke-linecap="round"
+    opacity="0.75"
+  />
+  <g fill="#d4a84b">
+    <polygon points="82,158 84.5,164 91,164 86,168 88,174 82,170 76,174 78,168 73,164 79.5,164"/>
+    <polygon points="100,160 102.5,166 109,166 104,170 106,176 100,172 94,176 96,170 91,166 97.5,166"/>
+    <polygon points="118,158 120.5,164 127,164 122,168 124,174 118,170 112,174 114,168 109,164 115.5,164"/>
+  </g>
+</svg>

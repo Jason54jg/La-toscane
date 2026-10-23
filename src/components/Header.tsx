@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Bike, Menu, Phone, X } from "lucide-react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { OpenStatusBadge } from "@/components/OpenStatusBadge";
+import { BrandLogo } from "@/components/BrandLogo";
 import { CartButton } from "@/components/cart/CartButton";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { formatPhoneDisplay, phoneTelHref, restaurant } from "@/data/restaurant";
@@ -39,13 +40,21 @@ export function Header() {
       <div className="section-pad container-narrow flex h-16 items-center justify-between gap-4 md:h-20">
         {/* lg+ : ne rétrécit pas sous son contenu (sinon le badge déborde sur la nav) */}
         <div className="flex min-w-0 items-center gap-2 sm:gap-3 lg:shrink-0">
-          <a href="#top" className="group flex items-baseline gap-2">
-            <span className="font-display text-2xl leading-none sm:whitespace-nowrap tracking-tight text-text md:text-3xl">
-              La Toscane
+          <a
+            href="#top"
+            className="group flex min-w-0 items-center gap-2.5 sm:gap-3"
+            aria-label="La Toscane — Neufchâteau"
+          >
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-line/90 bg-bg-elevated/95 p-1 shadow-[0_8px_24px_rgba(0,0,0,0.35)] ring-1 ring-white/[0.06] transition group-hover:border-gold/40 md:size-11">
+              <BrandLogo size={36} priority />
             </span>
-            {/* Seulement sur très grands écrans : sinon le header manque de place */}
-            <span className="hidden text-[10px] uppercase tracking-[0.2em] text-gold 2xl:inline">
-              Neufchâteau
+            <span className="flex min-w-0 flex-col leading-tight">
+              <span className="font-display text-xl tracking-tight text-text sm:text-2xl md:text-[1.65rem]">
+                La Toscane
+              </span>
+              <span className="hidden text-[10px] uppercase tracking-[0.22em] text-gold sm:block">
+                Neufchâteau
+              </span>
             </span>
           </a>
           {/* Sur petit mobile, le badge est dans le menu déroulant */}

@@ -1,5 +1,6 @@
 "use client";
 
+import { BrandLogo } from "@/components/BrandLogo";
 import { useLocale } from "@/i18n/LocaleProvider";
 import { restaurant } from "@/data/restaurant";
 
@@ -11,7 +12,12 @@ export function Footer() {
     <footer className="section-pad border-t border-line py-10">
       <div className="container-narrow flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="font-display text-3xl">La Toscane</p>
+          <div className="flex items-center gap-3">
+            <span className="flex size-12 items-center justify-center rounded-full border border-line bg-bg-elevated p-1.5">
+              <BrandLogo size={40} />
+            </span>
+            <p className="font-display text-3xl">La Toscane</p>
+          </div>
           <p className="mt-1 text-sm text-muted">
             {restaurant.address}, {restaurant.postalCode} {restaurant.city}
           </p>
