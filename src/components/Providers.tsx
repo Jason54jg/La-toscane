@@ -4,7 +4,6 @@ import { useEffect, type ReactNode } from "react";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
 import { Analytics } from "@/components/Analytics";
 import { CartDrawer } from "@/components/cart/CartDrawer";
-import { PageLoader } from "@/components/PageLoader";
 import { useCartStore } from "@/store/cartStore";
 
 export function Providers({ children }: { children: ReactNode }) {
@@ -15,7 +14,6 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <LocaleProvider>
       <Analytics />
-      <PageLoader />
       {children}
       <CartDrawer />
     </LocaleProvider>
