@@ -38,7 +38,7 @@ export const useCartStore = create<CartState>()(
           items: [
             ...state.items,
             {
-              id: `${payload.menuItemId}-${Date.now()}`,
+              id: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`,
               ...payload,
             },
           ],
