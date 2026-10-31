@@ -1,5 +1,6 @@
 "use client";
 
+import { AccessibleDialog } from "@/components/AccessibleDialog";
 import { useState } from "react";
 import { Bike, Check, Copy, Minus, Plus, Phone, Trash2, X } from "lucide-react";
 import { useLocale } from "@/i18n/LocaleProvider";
@@ -51,17 +52,18 @@ export function CartDrawer() {
   };
 
   return (
-    <div className="fixed inset-0 z-[60]">
+    <AccessibleDialog onClose={closeCart} aria-labelledby="cart-title" className="fixed inset-0 z-[60]">
       <button
         type="button"
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        tabIndex={-1}
         aria-label={t.configurator.close}
         onClick={closeCart}
       />
       <aside className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col border-l border-line bg-bg-elevated shadow-[var(--shadow)]">
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <div>
-            <h2 className="font-display text-2xl">{t.cart.title}</h2>
+            <h2 id="cart-title" className="font-display text-2xl">{t.cart.title}</h2>
             <p className="text-sm text-muted">
               {items.length} {t.cart.items}
             </p>
@@ -69,6 +71,7 @@ export function CartDrawer() {
           <button
             type="button"
             onClick={closeCart}
+            aria-label={t.configurator.close}
             className="rounded-full border border-line p-2 text-muted hover:text-text"
           >
             <X className="size-5" />
@@ -111,6 +114,7 @@ export function CartDrawer() {
                     <button
                       type="button"
                       className="rounded-full border border-line p-1"
+                      aria-label={locale === "fr" ? "Réduire la quantité" : "Decrease quantity"}
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                     >
                       <Minus className="size-4" />
@@ -121,6 +125,7 @@ export function CartDrawer() {
                     <button
                       type="button"
                       className="rounded-full border border-line p-1"
+                      aria-label={locale === "fr" ? "Augmenter la quantité" : "Increase quantity"}
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                     >
                       <Plus className="size-4" />
@@ -191,6 +196,6 @@ export function CartDrawer() {
           </p>
         </div>
       </aside>
-    </div>
+    </AccessibleDialog>
   );
 }
