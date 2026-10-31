@@ -26,6 +26,7 @@ export function ReviewsSection() {
   const [data, setData] = useState<ReviewsPayload>(initial);
 
   useEffect(() => {
+    if (process.env.NEXT_PUBLIC_STATIC_EXPORT === "true") return;
     let cancelled = false;
 
     (async () => {
