@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AccessibleDialog } from "@/components/AccessibleDialog";
 import { Minus, Plus, X } from "lucide-react";
 import {
   pizzaSupplements,
@@ -42,6 +43,7 @@ function Chip({
     <button
       type="button"
       disabled={disabled}
+      aria-pressed={active}
       onClick={onClick}
       className={`rounded-full border px-3 py-2 text-left text-sm transition disabled:cursor-not-allowed disabled:opacity-40 ${
         active
@@ -143,10 +145,11 @@ export function MenuConfigurator({ item, onClose }: Props) {
   const showSauces = showMeats;
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-end justify-center sm:items-center">
+    <AccessibleDialog onClose={onClose} aria-labelledby="configurator-title" className="fixed inset-0 z-[70] flex items-end justify-center sm:items-center">
       <button
         type="button"
         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        tabIndex={-1}
         aria-label={t.configurator.close}
         onClick={onClose}
       />
@@ -156,7 +159,7 @@ export function MenuConfigurator({ item, onClose }: Props) {
             <p className="text-xs uppercase tracking-[0.18em] text-gold">
               {t.configurator.title}
             </p>
-            <h2 className="font-display text-3xl leading-tight">
+            <h2 id="configurator-title" className="font-display text-3xl leading-tight">
               {tLocal(item.name, locale)}
             </h2>
             {item.description && (
@@ -173,6 +176,7 @@ export function MenuConfigurator({ item, onClose }: Props) {
           <button
             type="button"
             onClick={onClose}
+            aria-label={t.configurator.close}
             className="rounded-full border border-line p-2 text-muted hover:text-text"
           >
             <X className="size-5" />
@@ -315,6 +319,6 @@ export function MenuConfigurator({ item, onClose }: Props) {
           </button>
         </div>
       </div>
-    </div>
+    </AccessibleDialog>
   );
 }
