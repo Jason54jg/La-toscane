@@ -30,12 +30,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      # Export statique : pas d’API sur Pages (le code API reste dans le repo)
-      - name: Exclude API routes for static export
-        run: rm -rf src/app/api
-
       - name: Build static export
-        run: npm run build
+        run: npm run build:pages
         env:
           STATIC_EXPORT: "true"
           NEXT_PUBLIC_BASE_PATH: /La-toscane

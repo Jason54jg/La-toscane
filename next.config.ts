@@ -13,12 +13,15 @@ const nextConfig: NextConfig = {
   ...(isStaticExport
     ? {
         output: "export" as const,
+        // Les pages/layouts .tsx restent exportés ; route.ts exige un serveur.
+        pageExtensions: ["tsx"],
         trailingSlash: true,
         basePath: basePath || undefined,
         assetPrefix: basePath || undefined,
       }
     : {}),
   ...(isStandalone ? { output: "standalone" as const } : {}),
+  env: { NEXT_PUBLIC_STATIC_EXPORT: isStaticExport ? "true" : "false" },
   images: {
     unoptimized: isStaticExport,
     remotePatterns: [
